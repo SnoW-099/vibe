@@ -1,0 +1,13 @@
+.terminal-style {
+    font-family: 'SF Mono', 'Menlo', monospace;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 1rem;
+    border-radius: 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.status-text {
+    color: #30d158;
+    font-size: 0.8rem;
+    margin-bottom: 0.4rem;
+}
