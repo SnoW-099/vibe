@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Code, Link, Folder, FileText, Settings } from 'lucide-react';
 import './App.css';
 import { useLocalStorage, useLocalStorageString } from './hooks/useLocalStorage';
 
@@ -108,11 +109,11 @@ function App() {
 
   // Navigation items
   const navItems = [
-    { id: 'snippets', icon: '◇', label: 'Snippets' },
-    { id: 'links', icon: '◈', label: 'Links' },
-    { id: 'projects', icon: '▣', label: 'Projects' },
-    { id: 'notes', icon: '▤', label: 'Notes' },
-    { id: 'system', icon: '◎', label: 'System' },
+    { id: 'snippets', icon: <Code size={24} />, label: 'Snippets' },
+    { id: 'links', icon: <Link size={24} />, label: 'Links' },
+    { id: 'projects', icon: <Folder size={24} />, label: 'Projects' },
+    { id: 'notes', icon: <FileText size={24} />, label: 'Notes' },
+    { id: 'system', icon: <Settings size={24} />, label: 'System' },
   ];
 
   // Render section based on active
