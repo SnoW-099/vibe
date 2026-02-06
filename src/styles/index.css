@@ -1,0 +1,5 @@
+/* Main style entry point - imports all styles */
+@import './base.css';
+@import './background.css';
+@import './layout.css';
+@import './buttons.css';

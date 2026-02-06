@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import './App.css';
 import { useLocalStorage, useLocalStorageString } from './hooks/useLocalStorage';
 
-// Components
+// Components (using original flat structure)
 import Header from './components/Header';
 import Toast from './components/Toast';
 import Snippets from './components/Snippets';
@@ -10,10 +11,11 @@ import Projects from './components/Projects';
 import Notes from './components/Notes';
 import SystemStatus from './components/SystemStatus';
 
-import './App.css';
-
 function App() {
-  // ===== STATE (with custom hooks) =====
+  // Active section for sidebar navigation
+  const [activeSection, setActiveSection] = useState('snippets');
+
+  // Data state
   const [snippets, setSnippets] = useLocalStorage('devpanel_snippets', [
     { id: 1, title: 'React Hook', code: 'const [state, setState] = useState(initialState);' },
     { id: 2, title: 'CSS Glassmorphism', code: 'background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px);' }
@@ -32,13 +34,13 @@ function App() {
   const [notes, setNotes] = useLocalStorageString('devpanel_notes', '');
   const [toast, setToast] = useState({ show: false, message: '' });
 
-  // ===== TOAST =====
+  // Toast
   const showToast = (message) => {
     setToast({ show: true, message });
     setTimeout(() => setToast({ show: false, message: '' }), 2500);
   };
 
-  // ===== SNIPPET HANDLERS =====
+  // Handlers
   const handleAddSnippet = () => {
     const title = prompt('Snippet Title:');
     const code = prompt('Code:');
@@ -67,7 +69,6 @@ function App() {
     showToast('Copied to clipboard');
   };
 
-  // ===== LINK HANDLERS =====
   const handleAddLink = () => {
     const name = prompt('Link Name:');
     const url = prompt('URL:');
@@ -82,7 +83,6 @@ function App() {
     showToast('Link deleted');
   };
 
-  // ===== PROJECT HANDLERS =====
   const handleAddProject = () => {
     const name = prompt('Project Name:');
     if (name) {
@@ -106,7 +106,41 @@ function App() {
     }));
   };
 
-  // ===== RENDER =====
+  // Navigation items
+  const navItems = [
+    { id: 'snippets', icon: '{ }', label: 'Snippets' },
+    { id: 'links', icon: '🔗', label: 'Links' },
+    { id: 'projects', icon: '📁', label: 'Projects' },
+    { id: 'notes', icon: '📝', label: 'Notes' },
+    { id: 'system', icon: '⚙️', label: 'System' },
+  ];
+
+  // Render section based on active
+  const renderSection = () => {
+    switch (activeSection) {
+      case 'snippets':
+        return (
+          <Snippets
+            snippets={snippets}
+            onAdd={handleAddSnippet}
+            onEdit={handleEditSnippet}
+            onDelete={handleDeleteSnippet}
+            onCopy={handleCopySnippet}
+          />
+        );
+      case 'links':
+        return <Links links={links} onAdd={handleAddLink} onDelete={handleDeleteLink} />;
+      case 'projects':
+        return <Projects projects={projects} onAdd={handleAddProject} onDelete={handleDeleteProject} onToggle={handleToggleProject} />;
+      case 'notes':
+        return <Notes notes={notes} onChange={setNotes} />;
+      case 'system':
+        return <SystemStatus snippetsCount={snippets.length} projectsCount={projects.length} linksCount={links.length} />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="app-container">
       <Toast show={toast.show} message={toast.message} />
@@ -118,40 +152,32 @@ function App() {
         <div className="orb orb-3"></div>
       </div>
 
-      <Header />
+      {/* Sidebar */}
+      <aside className="sidebar">
+        <div className="sidebar-header">
+          <h1 className="sidebar-logo">V</h1>
+        </div>
+        <nav className="sidebar-nav">
+          {navItems.map(item => (
+            <button
+              key={item.id}
+              className={`nav-item ${activeSection === item.id ? 'active' : ''}`}
+              onClick={() => setActiveSection(item.id)}
+              title={item.label}
+            >
+              <span className="nav-icon">{item.icon}</span>
+              <span className="nav-label">{item.label}</span>
+            </button>
+          ))}
+        </nav>
+      </aside>
 
-      <main className="dashboard">
-        <Snippets
-          snippets={snippets}
-          onAdd={handleAddSnippet}
-          onEdit={handleEditSnippet}
-          onDelete={handleDeleteSnippet}
-          onCopy={handleCopySnippet}
-        />
-
-        <Links
-          links={links}
-          onAdd={handleAddLink}
-          onDelete={handleDeleteLink}
-        />
-
-        <Projects
-          projects={projects}
-          onAdd={handleAddProject}
-          onDelete={handleDeleteProject}
-          onToggle={handleToggleProject}
-        />
-
-        <Notes
-          notes={notes}
-          onChange={setNotes}
-        />
-
-        <SystemStatus
-          snippetsCount={snippets.length}
-          projectsCount={projects.length}
-          linksCount={links.length}
-        />
+      {/* Main Content */}
+      <main className="main-content">
+        <Header />
+        <div className="content-area">
+          {renderSection()}
+        </div>
       </main>
     </div>
   );
