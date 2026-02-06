@@ -57,6 +57,15 @@ function App() {
 
   return (
     <div className="app-container">
+      {/* Animated Vibe Background */}
+      <div className="vibe-bg">
+        <div className="blob blob-1"></div>
+        <div className="blob blob-2"></div>
+        <div className="blob blob-3"></div>
+        <div className="blob blob-4"></div>
+        <div className="blob blob-5"></div>
+      </div>
+
       <header className="main-header">
         <h1>Dev<span>Panel</span></h1>
         <p>Your personal developer dashboard</p>
