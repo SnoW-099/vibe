@@ -117,13 +117,13 @@
 }
 
 .nav-icon {
-  font-size: 1.25rem;
-  min-width: 28px;
-  height: 28px;
+  font-size: 1.5rem;
+  min-width: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0.9;
+  opacity: 1;
 }
 
 .nav-label {
