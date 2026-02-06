@@ -108,11 +108,11 @@ function App() {
 
   // Navigation items
   const navItems = [
-    { id: 'snippets', icon: '{ }', label: 'Snippets' },
-    { id: 'links', icon: '🔗', label: 'Links' },
-    { id: 'projects', icon: '📁', label: 'Projects' },
-    { id: 'notes', icon: '📝', label: 'Notes' },
-    { id: 'system', icon: '⚙️', label: 'System' },
+    { id: 'snippets', icon: '◇', label: 'Snippets' },
+    { id: 'links', icon: '◈', label: 'Links' },
+    { id: 'projects', icon: '▣', label: 'Projects' },
+    { id: 'notes', icon: '▤', label: 'Notes' },
+    { id: 'system', icon: '◎', label: 'System' },
   ];
 
   // Render section based on active
