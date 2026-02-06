@@ -6,11 +6,9 @@
 /* ===== SIDEBAR ===== */
 .sidebar {
   width: 72px;
-  background: linear-gradient(180deg,
-      rgba(20, 20, 25, 0.95) 0%,
-      rgba(10, 10, 15, 0.98) 100%);
-  backdrop-filter: blur(40px) saturate(180%);
-  border-right: 1px solid rgba(255, 255, 255, 0.04);
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(60px) saturate(180%);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
   flex-direction: column;
   position: fixed;
