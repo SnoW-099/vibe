@@ -167,16 +167,14 @@ function App() {
                 <button
                   onClick={() => setTheme('dark')}
                   className={`theme-btn ${theme === 'dark' ? 'active' : ''}`}
-                  style={{ padding: '1rem 2rem', borderRadius: '12px', background: theme === 'dark' ? 'var(--text-primary)' : 'transparent', color: theme === 'dark' ? 'var(--bg-primary)' : 'var(--text-primary)', border: '1px solid var(--glass-border)', cursor: 'pointer' }}
                 >
-                  Dark Vibe
+                  <span style={{ fontSize: '1.2rem' }}>🌑</span> Dark Vibe
                 </button>
                 <button
                   onClick={() => setTheme('snow')}
                   className={`theme-btn ${theme === 'snow' ? 'active' : ''}`}
-                  style={{ padding: '1rem 2rem', borderRadius: '12px', background: theme === 'snow' ? 'var(--text-primary)' : 'transparent', color: theme === 'snow' ? 'var(--bg-primary)' : 'var(--text-primary)', border: '1px solid var(--glass-border)', cursor: 'pointer' }}
                 >
-                  ❄️ Snow
+                  <span style={{ fontSize: '1.2rem' }}>❄️</span> Snow
                 </button>
               </div>
             </div>
