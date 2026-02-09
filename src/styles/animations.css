@@ -1,0 +1,113 @@
+/* ===== GLOBAL ANIMATIONS ===== */
+
+/* Page Transition: Fade In + Slide Up */
+@keyframes pageEnter {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.content-area>* {
+    animation: pageEnter 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Staggered List Items Animation */
+@keyframes listEnter {
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Apply staggered animation to children of lists */
+.tasks-list>*:nth-child(1) {
+    animation-delay: 0.05s;
+}
+
+.tasks-list>*:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.tasks-list>*:nth-child(3) {
+    animation-delay: 0.15s;
+}
+
+.tasks-list>*:nth-child(4) {
+    animation-delay: 0.2s;
+}
+
+.tasks-list>*:nth-child(5) {
+    animation-delay: 0.25s;
+}
+
+.tasks-list>* {
+    animation: listEnter 0.4s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+
+/* Button & Interactive Element Press Effect */
+button:active,
+.card:active,
+.task-item:active {
+    transform: scale(0.98);
+}
+
+/* Checkbox Elastic Animation */
+@keyframes elasticity {
+    0% {
+        transform: scale(1);
+    }
+
+    30% {
+        transform: scale(1.25);
+    }
+
+    50% {
+        transform: scale(0.9);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.checkbox.checked {
+    animation: elasticity 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Glow Effect on Hover for Cards */
+.glass-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.glass-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.05),
+            transparent);
+    transform: skewX(-25deg);
+    transition: 0.5s;
+    pointer-events: none;
+}
+
+.glass-card:hover::after {
+    left: 150%;
+    transition: 0.7s ease-in-out;
+}

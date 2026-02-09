@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Code, Link, Folder, FileText, Settings, CheckSquare } from 'lucide-react';
 import './App.css';
+import './styles/animations.css'; // Global animations
 import { useLocalStorage, useLocalStorageString } from './hooks/useLocalStorage';
 
 // Components (using original flat structure)
