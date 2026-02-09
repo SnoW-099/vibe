@@ -11,6 +11,7 @@ function Header() {
     const [showGame, setShowGame] = useState(false);
 
     useEffect(() => {
+        console.log("HEADER RELOADED! V2 - SNAKE & WEATHER");
         const timer = setInterval(() => setCurrentTime(new Date()), 1000);
         return () => clearInterval(timer);
     }, []);
