@@ -38,7 +38,7 @@ function Header() {
                         <span className={styles.time}>{formatTime(currentTime)}</span>
                         <span className={styles.date}>{formatDate(currentTime)}</span>
                     </div>
-                    <div className={styles.separator}></div>
+
                     <Weather />
                     <button
                         className={styles.gameBtn}

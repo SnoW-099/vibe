@@ -39,12 +39,6 @@
     letter-spacing: 0.5px;
 }
 
-.separator {
-    width: 1px;
-    height: 30px;
-    background: rgba(255, 255, 255, 0.1);
-}
-
 .title {
     font-size: 1.5rem;
     font-weight: 700;

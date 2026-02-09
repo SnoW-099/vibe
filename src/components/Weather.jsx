@@ -59,7 +59,7 @@ function Weather() {
     return (
         <div className="weather-widget" title="Current Weather">
             {weather.loading ? (
-                <span className="loading-dots">...</span>
+                <div className="weather-spinner"></div>
             ) : (
                 <>
                     <span className="weather-icon">{getIcon()}</span>

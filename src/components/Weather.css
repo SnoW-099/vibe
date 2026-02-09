@@ -27,8 +27,17 @@
 
 /* Specific icon colors could be handled via JS props or classes, but for now golden sun is nice default style */
 
-.loading-dots {
-    opacity: 0.5;
-    font-size: 1.2rem;
-    line-height: 1;
+.weather-spinner {
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-top-color: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
 }
