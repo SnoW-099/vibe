@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Code, Link, Folder, FileText, Settings } from 'lucide-react';
+import { Code, Link, Folder, FileText, Settings, CheckSquare } from 'lucide-react';
 import './App.css';
 import { useLocalStorage, useLocalStorageString } from './hooks/useLocalStorage';
 
@@ -11,6 +11,7 @@ import Snippets from './components/Snippets';
 import Links from './components/Links';
 import Projects from './components/Projects';
 import Notes from './components/Notes';
+import Tasks from './components/Tasks';
 import SystemStatus from './components/SystemStatus';
 
 function App() {
@@ -148,6 +149,7 @@ function App() {
 
   // Navigation items
   const navItems = [
+    { id: 'tasks', icon: <CheckSquare size={24} />, label: 'Tasks' },
     { id: 'snippets', icon: <Code size={24} />, label: 'Snippets' },
     { id: 'links', icon: <Link size={24} />, label: 'Links' },
     { id: 'projects', icon: <Folder size={24} />, label: 'Projects' },
@@ -158,6 +160,8 @@ function App() {
   // Render section based on active
   const renderSection = () => {
     switch (activeSection) {
+      case 'tasks':
+        return <Tasks />;
       case 'snippets':
         return (
           <Snippets
