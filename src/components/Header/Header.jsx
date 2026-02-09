@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Header.module.css';
+import Weather from '../Weather';
+import '../Weather.css';
+import Weather from '../Weather';
+import '../Weather.css'; // Import global styles for weather widget
 
 function Header() {
     const [currentTime, setCurrentTime] = useState(new Date());
@@ -19,11 +23,18 @@ function Header() {
 
     return (
         <header className={styles.header}>
-            <div className={styles.clock}>
-                <span className={styles.time}>{formatTime(currentTime)}</span>
-                <span className={styles.date}>{formatDate(currentTime)}</span>
+            <div className={styles.left}>
+                <div className={styles.clock}>
+                    <span className={styles.time}>{formatTime(currentTime)}</span>
+                    <span className={styles.date}>{formatDate(currentTime)}</span>
+                </div>
             </div>
+
             <h1 className={styles.title}>Dev<span>Panel</span></h1>
+
+            <div className={styles.right}>
+                <Weather />
+            </div>
         </header>
     );
 }

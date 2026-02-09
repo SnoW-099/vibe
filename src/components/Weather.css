@@ -1,0 +1,34 @@
+.weather-widget {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+    font-size: 0.9rem;
+    cursor: default;
+    transition: all 0.3s ease;
+}
+
+.weather-widget:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-1px);
+}
+
+.weather-icon {
+    display: flex;
+    align-items: center;
+    color: #fbbf24;
+    /* Sun color default */
+}
+
+/* Specific icon colors could be handled via JS props or classes, but for now golden sun is nice default style */
+
+.loading-dots {
+    opacity: 0.5;
+    font-size: 1.2rem;
+    line-height: 1;
+}
