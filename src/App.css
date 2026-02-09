@@ -296,10 +296,10 @@ body {
 }
 
 .theme-btn.active {
-  background: var(--text-primary);
-  color: var(--bg-primary);
-  border-color: var(--text-primary);
-  box-shadow: 0 4px 12px var(--glass-shadow);
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
 }
 
 /* ===== RESPONSIVE ===== */
