@@ -1,3 +1,48 @@
+/* ===== THEME VARIABLES ===== */
+:root {
+  /* Default Dark Theme */
+  --bg-primary: #0a0a0a;
+  --bg-secondary: rgba(255, 255, 255, 0.05);
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.6);
+  --accent: white;
+  --glass-bg: rgba(20, 20, 20, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-shadow: rgba(0, 0, 0, 0.5);
+}
+
+.theme-snow {
+  /* Snow / Light Theme - Glacier Style */
+  --bg-primary: #e3f2fd;
+  /* Light blue-white */
+  --bg-secondary: rgba(255, 255, 255, 0.8);
+  --text-primary: #1e293b;
+  /* Dark slate */
+  --text-secondary: #475569;
+  /* Medium slate */
+  --accent: #0ea5e9;
+  /* Sky blue */
+  --glass-bg: rgba(255, 255, 255, 0.65);
+  --glass-border: rgba(255, 255, 255, 0.8);
+  /* Stronger border for visibility */
+  --glass-shadow: rgba(148, 163, 184, 0.15);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  height: 100vh;
+  overflow: hidden;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
 .app-container {
   display: flex;
   min-height: 100vh;
@@ -10,9 +55,9 @@
 /* ===== SIDEBAR ===== */
 .sidebar {
   width: 72px;
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--glass-bg);
   backdrop-filter: blur(80px) saturate(200%);
-  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  border-right: 1px solid var(--glass-border);
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -21,14 +66,12 @@
   height: 100vh;
   z-index: 100;
   transition: width 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-  /* Slower, smoother ease */
   will-change: width;
-  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.3);
+  box-shadow: 4px 0 24px var(--glass-shadow);
 }
 
 .sidebar:hover {
   width: 260px;
-  /* Slightly wider */
 }
 
 /* Sidebar glow effect */
@@ -49,14 +92,14 @@
 .sidebar-header {
   padding: 1.5rem 0;
   text-align: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid var(--glass-border);
   position: relative;
 }
 
 .sidebar-logo {
   font-size: 1.75rem;
   font-weight: 800;
-  background: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0.6) 100%);
+  background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -83,13 +126,12 @@
   background: transparent;
   border: none;
   border-radius: 10px;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--text-secondary);
   cursor: pointer;
   transition: all 0.2s ease;
   overflow: hidden;
   position: relative;
   width: 100%;
-  /* Ensure it spans full width */
 }
 
 .sidebar:hover .nav-item {
@@ -105,19 +147,19 @@
   transform: translateY(-50%);
   width: 3px;
   height: 0;
-  background: white;
+  background: var(--text-primary);
   border-radius: 0 2px 2px 0;
   transition: height 0.25s ease;
 }
 
 .nav-item:hover {
-  background: rgba(255, 255, 255, 0.04);
-  color: rgba(255, 255, 255, 0.85);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
 }
 
 .nav-item.active {
-  background: rgba(255, 255, 255, 0.08);
-  color: white;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
 }
 
 .nav-item.active::before {
@@ -164,15 +206,14 @@
 .content-area {
   width: 100%;
   max-width: 1600px;
-  /* Limit only on ultra-wide screens */
   margin: 0 auto;
 }
 
 /* ===== SHARED BUTTON STYLES ===== */
 .add-btn {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  color: rgba(255, 255, 255, 0.7);
+  background: var(--bg-secondary);
+  border: 1px solid var(--glass-border);
+  color: var(--text-secondary);
   width: 32px;
   height: 32px;
   border-radius: 10px;
@@ -186,10 +227,56 @@
 }
 
 .add-btn:hover {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.15);
-  color: white;
+  background: var(--glass-bg);
+  border-color: var(--text-primary);
+  color: var(--text-primary);
   transform: scale(1.05);
+}
+
+/* Snippets Grid & Glass Card */
+.snippets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  transition: transform 0.2s ease;
+  box-shadow: 0 4px 6px -1px var(--glass-shadow);
+}
+
+/* Theme Selector Buttons */
+.theme-btn {
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--glass-border);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: inherit;
+}
+
+.theme-btn:hover {
+  background: var(--bg-secondary);
+  border-color: var(--text-secondary);
+}
+
+.theme-btn.active {
+  background: var(--text-primary);
+  color: var(--bg-primary);
+  /* Inverted color for active state */
+  border-color: var(--text-primary);
+  box-shadow: 0 4px 12px var(--glass-shadow);
 }
 
 /* ===== RESPONSIVE ===== */

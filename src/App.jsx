@@ -206,7 +206,7 @@ function App() {
       {/* Sidebar */}
       <aside className="sidebar">
         <div className="sidebar-header">
-          <h1 className="sidebar-logo">V</h1>
+          <h1 className="sidebar-logo">Vibes</h1>
         </div>
         <nav className="sidebar-nav">
           {navItems.map(item => (
