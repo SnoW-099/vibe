@@ -7,7 +7,7 @@
     transition: all 0.3s ease;
 }
 
-/* Force dark terminal background even in Snow theme for contrast, OR adapt it */
+/* Force dark terminal background even in Snow theme */
 :global(.theme-snow) .terminal-style {
     background: rgba(15, 23, 42, 0.5);
     border: 1px solid rgba(148, 163, 184, 0.1);
@@ -23,6 +23,6 @@
 }
 
 :global(.theme-snow) .status-text {
-    color: #16a34a;
-    /* Darker green for light mode */
+    color: #4ade80;
+    /* Keep brighter green for dark snow theme */
 }

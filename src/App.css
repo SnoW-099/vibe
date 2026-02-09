@@ -12,20 +12,18 @@
 }
 
 .theme-snow {
-  /* Snow / Light Theme - Glacier Style */
-  --bg-primary: #e3f2fd;
-  /* Light blue-white */
-  --bg-secondary: rgba(255, 255, 255, 0.8);
-  --text-primary: #1e293b;
-  /* Dark slate */
-  --text-secondary: #475569;
-  /* Medium slate */
-  --accent: #0ea5e9;
-  /* Sky blue */
-  --glass-bg: rgba(255, 255, 255, 0.65);
-  --glass-border: rgba(255, 255, 255, 0.8);
-  /* Stronger border for visibility */
-  --glass-shadow: rgba(148, 163, 184, 0.15);
+  /* Dark Snow / Winter Night Theme */
+  --bg-primary: #020617;
+  /* Very dark blue black */
+  --bg-secondary: rgba(255, 255, 255, 0.08);
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.7);
+  --accent: #38bdf8;
+  /* Cyan blue */
+  --glass-bg: rgba(15, 23, 42, 0.7);
+  /* Dark blue glass */
+  --glass-border: rgba(148, 163, 184, 0.2);
+  --glass-shadow: rgba(0, 0, 0, 0.4);
 }
 
 * {
@@ -37,18 +35,11 @@
 body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   background-color: #0a0a0a;
-  /* Default Dark background */
   color: white;
-  /* Default Dark text */
   height: 100vh;
-  margin: 0;
-  padding: 0;
   overflow: hidden;
   transition: background-color 0.5s ease, color 0.5s ease;
 }
-
-/* Force body styles when theme-snow is active on app-container (via CSS selector hack or just use strict class on body if possible, but let's stick to container for React) */
-/* Actually, best practice: Let .app-container handle the background color */
 
 .app-container {
   display: flex;
@@ -58,23 +49,20 @@ body {
   padding: 0;
   overflow-x: hidden;
   background-color: var(--bg-primary);
-  /* Use variable here! */
   color: var(--text-primary);
   transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 /* Specific overrides for Snow Theme applied to container */
 .app-container.theme-snow {
-  background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 100%);
-  /* Glacier gradient */
-  color: #1e293b;
+  background: radial-gradient(circle at 50% 0%, #1e293b 0%, #020617 100%);
+  color: white;
 }
 
 /* ===== SIDEBAR ===== */
 .sidebar {
   width: 72px;
   background: rgba(20, 20, 20, 0.6);
-  /* Default Dark Glass */
   backdrop-filter: blur(20px) saturate(180%);
   border-right: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
@@ -90,10 +78,9 @@ body {
 }
 
 .theme-snow .sidebar {
-  background: rgba(255, 255, 255, 0.65);
-  /* Snow Glass */
-  border-right: 1px solid rgba(255, 255, 255, 0.4);
-  box-shadow: 4px 0 24px rgba(148, 163, 184, 0.1);
+  background: rgba(15, 23, 42, 0.6);
+  border-right: 1px solid rgba(148, 163, 184, 0.15);
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.3);
 }
 
 .sidebar:hover {
@@ -268,7 +255,6 @@ body {
 
 .glass-card {
   background: rgba(20, 20, 20, 0.6);
-  /* Default Dark Card */
   backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 20px;
@@ -278,15 +264,14 @@ body {
 }
 
 .theme-snow .glass-card {
-  background: rgba(255, 255, 255, 0.7);
-  /* Snow Card */
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  box-shadow: 0 8px 32px rgba(148, 163, 184, 0.15);
-  color: #1e293b;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  color: white;
 }
 
 .theme-snow .glass-card h2 {
-  color: #0f172a;
+  color: white;
 }
 
 /* Theme Selector Buttons */
@@ -313,7 +298,6 @@ body {
 .theme-btn.active {
   background: var(--text-primary);
   color: var(--bg-primary);
-  /* Inverted color for active state */
   border-color: var(--text-primary);
   box-shadow: 0 4px 12px var(--glass-shadow);
 }
