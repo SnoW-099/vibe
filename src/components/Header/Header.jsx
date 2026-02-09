@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Header.module.css';
 import Weather from '../Weather';
-import '../Weather.css';
-import Weather from '../Weather';
 import '../Weather.css'; // Import global styles for weather widget
 
 function Header() {
