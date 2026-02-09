@@ -29,7 +29,7 @@ function Header() {
             <header className={styles.header}>
                 <div className={styles.left}>
                     <h1 className={styles.title} onClick={() => setShowGame(true)} style={{ cursor: 'pointer', pointerEvents: 'auto' }}>
-                        Dev<span>Panel</span>
+                        Vibes
                     </h1>
                 </div>
 
