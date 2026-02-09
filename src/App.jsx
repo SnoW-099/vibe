@@ -224,12 +224,21 @@ function App() {
         onConfirm={modalConfig.onConfirm}
       />
 
-      {/* Animated Background */}
-      <div className="vibe-bg">
-        <div className="orb orb-1"></div>
-        <div className="orb orb-2"></div>
-        <div className="orb orb-3"></div>
-      </div>
+      import SnowBackground from './components/SnowBackground';
+
+      // ... (in component)
+
+      {/* Backgrounds */}
+      {theme === 'snow' && <SnowBackground />}
+
+      {/* Original Orb Background (only show if NOT snow, or keep it subtle?) */}
+      {theme !== 'snow' && (
+        <div className="vibe-bg">
+          <div className="orb orb-1"></div>
+          <div className="orb orb-2"></div>
+          <div className="orb orb-3"></div>
+        </div>
+      )}
 
       {/* Sidebar */}
       <aside className="sidebar">
