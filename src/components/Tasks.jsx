@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Trash2, Plus, Check } from 'lucide-react';
+import './Tasks.css';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 
 function Tasks() {
