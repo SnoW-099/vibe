@@ -3,7 +3,7 @@ import './SnakeGame.css';
 
 const GRID_SIZE = 20;
 const TILE_SIZE = 20;
-const SPEED = 100;
+const SPEED = 130; // Slower speed for better control
 
 function SnakeGame() {
     const canvasRef = useRef(null);
@@ -28,10 +28,8 @@ function SnakeGame() {
 
                 // Check collision with walls
                 if (
-                    newHead.x < 0 ||
-                    newHead.x >= GRID_SIZE ||
-                    newHead.y < 0 ||
-                    newHead.y >= GRID_SIZE ||
+                    newHead.x < 0 || newHead.x >= GRID_SIZE ||
+                    newHead.y < 0 || newHead.y >= GRID_SIZE ||
                     prevSnake.some(segment => segment.x === newHead.x && segment.y === newHead.y)
                 ) {
                     setGameOver(true);
@@ -57,15 +55,17 @@ function SnakeGame() {
 
         const gameInterval = setInterval(moveSnake, SPEED);
         return () => clearInterval(gameInterval);
-    }, [started, gameOver, direction, food]); // Removed 'snake' from dependencies to avoid loop restart issues? No, snake state updates inside.
-    // Actually, snake dependency is tricky in intervals. Using functional update in setSnake solves it.
+    }, [started, gameOver, direction, food]);
 
     // Key Controls
     useEffect(() => {
         const handleKeyPress = (e) => {
             if (!started && !gameOver) {
-                setStarted(true);
-                setDirection({ x: 1, y: 0 }); // Start moving right
+                // Prevent starting directly into a wall if careless
+                if (['ArrowUp', 'w', 'ArrowDown', 's', 'ArrowLeft', 'a', 'ArrowRight', 'd'].includes(e.key)) {
+                    setStarted(true);
+                    // Default start direction is right if not specified, managed below
+                }
             }
 
             switch (e.key) {
@@ -102,27 +102,55 @@ function SnakeGame() {
         }
     }, [score, highScore]);
 
-    // Draw Canvas
+    // Draw Canvas (Neon Style)
     useEffect(() => {
         const canvas = canvasRef.current;
         const ctx = canvas.getContext('2d');
 
-        // Clear
-        ctx.fillStyle = '#000';
+        // Clear with background
+        ctx.fillStyle = '#050505';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        // Draw Snake
-        ctx.fillStyle = '#fff';
-        snake.forEach((segment, index) => {
-            ctx.globalAlpha = index === 0 ? 1 : 0.6; // Head is brighter
-            ctx.fillRect(segment.x * TILE_SIZE, segment.y * TILE_SIZE, TILE_SIZE - 2, TILE_SIZE - 2);
-        });
-        ctx.globalAlpha = 1;
+        // Draw Grid
+        ctx.strokeStyle = '#1a1a1a';
+        ctx.lineWidth = 1;
+        for (let i = 0; i <= GRID_SIZE; i++) {
+            ctx.beginPath();
+            ctx.moveTo(i * TILE_SIZE, 0);
+            ctx.lineTo(i * TILE_SIZE, canvas.height);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(0, i * TILE_SIZE);
+            ctx.lineTo(canvas.width, i * TILE_SIZE);
+            ctx.stroke();
+        }
 
-        // Draw Food
-        ctx.fillStyle = '#ff4757';
-        ctx.shadowBlur = 10;
-        ctx.shadowColor = '#ff4757';
+        // Draw Snake (Neon Green)
+        snake.forEach((segment, index) => {
+            // Gradient or solid neon
+            ctx.fillStyle = index === 0 ? '#00ff88' : '#00cc6a';
+            ctx.shadowBlur = index === 0 ? 15 : 5;
+            ctx.shadowColor = '#00ff88';
+
+            // Draw segment
+            ctx.fillRect(segment.x * TILE_SIZE + 1, segment.y * TILE_SIZE + 1, TILE_SIZE - 2, TILE_SIZE - 2);
+
+            // Eyes for head
+            if (index === 0) {
+                ctx.fillStyle = '#000';
+                ctx.shadowBlur = 0;
+                // Simple logic for eyes based on general direction or just centered
+                ctx.fillRect(segment.x * TILE_SIZE + 5, segment.y * TILE_SIZE + 5, 4, 4);
+                ctx.fillRect(segment.x * TILE_SIZE + 11, segment.y * TILE_SIZE + 5, 4, 4);
+            }
+        });
+
+        ctx.shadowBlur = 0; // Reset shadow for other elements if needed
+
+        // Draw Food (Neon Red Pulse)
+        ctx.fillStyle = '#ff0055';
+        ctx.shadowBlur = 20;
+        ctx.shadowColor = '#ff0055';
         ctx.beginPath();
         ctx.arc(
             food.x * TILE_SIZE + TILE_SIZE / 2,
@@ -148,8 +176,8 @@ function SnakeGame() {
     return (
         <div className="snake-game-container">
             <div className="snake-stats">
-                <span>Score: {score}</span>
-                <span>Best: {highScore}</span>
+                <span>SCORE: {score}</span>
+                <span>BEST: {highScore}</span>
             </div>
 
             <div className="canvas-wrapper">
@@ -162,20 +190,20 @@ function SnakeGame() {
 
                 {!started && !gameOver && (
                     <div className="game-overlay">
-                        <p>Press ARROWS to Start</p>
+                        <p className="blink-text">PRESS ARROWS TO START</p>
                     </div>
                 )}
 
                 {gameOver && (
                     <div className="game-overlay">
-                        <h3>Game Over</h3>
+                        <h3 className="game-over-text">GAME OVER</h3>
                         <p>Score: {score}</p>
-                        <button onClick={resetGame} className="restart-btn">Try Again</button>
+                        <button onClick={resetGame} className="restart-btn">RETRY</button>
                     </div>
                 )}
             </div>
 
-            <p className="game-instructions">Use arrow keys or WASD to move</p>
+            <p className="game-instructions">WASD / ARROWS</p>
         </div>
     );
 }

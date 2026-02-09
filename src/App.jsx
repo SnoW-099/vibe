@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Code, Link, Folder, FileText, Settings, CheckSquare } from 'lucide-react';
 import './App.css';
-import './styles/animations.css'; // Global animations
+import './styles/animations.css';
 import { useLocalStorage, useLocalStorageString } from './hooks/useLocalStorage';
 
-// Components (using original flat structure)
+// Components
 import Header from './components/Header/Header';
 import Toast from './components/Toast';
 import Modal from './components/Modal';
@@ -14,46 +14,37 @@ import Projects from './components/Projects';
 import Notes from './components/Notes';
 import Tasks from './components/Tasks';
 import SystemStatus from './components/SystemStatus';
+import SnowBackground from './components/SnowBackground';
+import './components/SnowBackground.css';
 
 function App() {
-  // Active section for sidebar navigation
+  // Navigation & State
   const [activeSection, setActiveSection] = useState('snippets');
-
-  // Data state
   const [snippets, setSnippets] = useLocalStorage('devpanel_snippets', [
     { id: 1, title: 'React Hook', code: 'const [state, setState] = useState(initialState);' },
     { id: 2, title: 'CSS Glassmorphism', code: 'background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px);' }
   ]);
-
   const [links, setLinks] = useLocalStorage('devpanel_links', [
     { id: 1, name: 'GitHub', url: 'https://github.com' },
     { id: 2, name: 'Documentation', url: 'https://developer.mozilla.org' }
   ]);
-
   const [projects, setProjects] = useLocalStorage('devpanel_projects', [
     { id: 1, name: 'DevPanel Dashboard', status: 'active', label: 'In Progress' },
     { id: 2, name: 'Old Portfolio', status: 'inactive', label: 'Maintenance' }
   ]);
-
   const [notes, setNotes] = useLocalStorageString('devpanel_notes', '');
   const [toast, setToast] = useState({ show: false, message: '' });
   const [modalConfig, setModalConfig] = useState({ isOpen: false, title: '', inputs: [], onConfirm: () => { } });
   const [theme, setTheme] = useLocalStorageString('devpanel_theme', 'dark');
 
-  // Toast
+  // Helpers
   const showToast = (message) => {
     setToast({ show: true, message });
     setTimeout(() => setToast({ show: false, message: '' }), 2500);
   };
 
-  // Modal Handler
-  const openModal = (config) => {
-    setModalConfig({ ...config, isOpen: true });
-  };
-
-  const closeModal = () => {
-    setModalConfig({ ...modalConfig, isOpen: false });
-  };
+  const openModal = (config) => setModalConfig({ ...config, isOpen: true });
+  const closeModal = () => setModalConfig({ ...modalConfig, isOpen: false });
 
   // Handlers
   const handleAddSnippet = () => {
@@ -122,9 +113,7 @@ function App() {
   const handleAddProject = () => {
     openModal({
       title: 'New Project',
-      inputs: [
-        { name: 'name', label: 'Project Name', placeholder: 'Project Title' }
-      ],
+      inputs: [{ name: 'name', label: 'Project Name', placeholder: 'Project Title' }],
       onConfirm: (values) => {
         if (values.name) {
           setProjects([...projects, { id: Date.now(), name: values.name, status: 'active', label: 'In Progress' }]);
@@ -149,7 +138,6 @@ function App() {
     }));
   };
 
-  // Navigation items
   const navItems = [
     { id: 'tasks', icon: <CheckSquare size={24} />, label: 'Tasks' },
     { id: 'snippets', icon: <Code size={24} />, label: 'Snippets' },
@@ -159,21 +147,11 @@ function App() {
     { id: 'system', icon: <Settings size={24} />, label: 'System' },
   ];
 
-  // Render section based on active
   const renderSection = () => {
     switch (activeSection) {
-      case 'tasks':
-        return <Tasks />;
+      case 'tasks': return <Tasks />;
       case 'snippets':
-        return (
-          <Snippets
-            snippets={snippets}
-            onAdd={handleAddSnippet}
-            onEdit={handleEditSnippet}
-            onDelete={handleDeleteSnippet}
-            onCopy={handleCopySnippet}
-          />
-        );
+        return <Snippets snippets={snippets} onAdd={handleAddSnippet} onEdit={handleEditSnippet} onDelete={handleDeleteSnippet} onCopy={handleCopySnippet} />;
       case 'links':
         return <Links links={links} onAdd={handleAddLink} onDelete={handleDeleteLink} />;
       case 'projects':
@@ -202,37 +180,24 @@ function App() {
                 </button>
               </div>
             </div>
-
             <div style={{ marginTop: '2rem' }}>
               <SystemStatus snippetsCount={snippets.length} projectsCount={projects.length} linksCount={links.length} />
             </div>
           </div>
         );
-      default:
-        return null;
+      default: return null;
     }
   };
 
   return (
     <div className={`app-container ${theme === 'snow' ? 'theme-snow' : ''}`}>
       <Toast show={toast.show} message={toast.message} />
-      <Modal
-        isOpen={modalConfig.isOpen}
-        title={modalConfig.title}
-        inputs={modalConfig.inputs}
-        onClose={closeModal}
-        onConfirm={modalConfig.onConfirm}
-      />
-
-      import SnowBackground from './components/SnowBackground';
-
-      // ... (in component)
+      <Modal isOpen={modalConfig.isOpen} title={modalConfig.title} inputs={modalConfig.inputs} onClose={closeModal} onConfirm={modalConfig.onConfirm} />
 
       {/* Backgrounds */}
-      {theme === 'snow' && <SnowBackground />}
-
-      {/* Original Orb Background (only show if NOT snow, or keep it subtle?) */}
-      {theme !== 'snow' && (
+      {theme === 'snow' ? (
+        <SnowBackground />
+      ) : (
         <div className="vibe-bg">
           <div className="orb orb-1"></div>
           <div className="orb orb-2"></div>
