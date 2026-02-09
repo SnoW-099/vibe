@@ -28,25 +28,25 @@ function Header() {
         <>
             <header className={styles.header}>
                 <div className={styles.left}>
-                    <div className={styles.clock}>
+                    <h1 className={styles.title} onClick={() => setShowGame(true)} style={{ cursor: 'pointer', pointerEvents: 'auto' }}>
+                        Dev<span>Panel</span>
+                    </h1>
+                </div>
+
+                <div className={styles.right}>
+                    <div className={styles.clockWidget}>
                         <span className={styles.time}>{formatTime(currentTime)}</span>
                         <span className={styles.date}>{formatDate(currentTime)}</span>
                     </div>
-                </div>
-
-                <h1 className={styles.title} onClick={() => setShowGame(true)} style={{ cursor: 'pointer', pointerEvents: 'auto' }}>
-                    Dev<span>Panel</span>
-                </h1>
-
-                <div className={styles.right}>
+                    <div className={styles.separator}></div>
+                    <Weather />
                     <button
                         className={styles.gameBtn}
                         onClick={() => setShowGame(true)}
                         title="Secret Zone"
                     >
-                        <Gamepad2 size={20} />
+                        <Gamepad2 size={18} />
                     </button>
-                    <Weather />
                 </div>
             </header>
 
