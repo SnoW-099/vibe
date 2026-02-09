@@ -1,0 +1,73 @@
+.snake-game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    color: white;
+}
+
+.snake-stats {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 400px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.canvas-wrapper {
+    position: relative;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+}
+
+.snake-canvas {
+    display: block;
+    background: #0a0a0a;
+}
+
+.game-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    animation: fadeIn 0.3s ease;
+}
+
+.game-overlay h3 {
+    font-size: 2rem;
+    color: #ff4757;
+    margin: 0;
+}
+
+.restart-btn {
+    padding: 0.6rem 1.5rem;
+    background: white;
+    color: black;
+    border: none;
+    border-radius: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+}
+
+.restart-btn:hover {
+    transform: scale(1.05);
+    background: #f0f0f0;
+}
+
+.game-instructions {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.4);
+}
