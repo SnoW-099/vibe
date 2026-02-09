@@ -5,7 +5,7 @@ import './styles/animations.css'; // Global animations
 import { useLocalStorage, useLocalStorageString } from './hooks/useLocalStorage';
 
 // Components (using original flat structure)
-import Header from './components/Header';
+import Header from './components/Header/Header';
 import Toast from './components/Toast';
 import Modal from './components/Modal';
 import Snippets from './components/Snippets';
