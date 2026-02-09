@@ -38,6 +38,7 @@ function App() {
   const [notes, setNotes] = useLocalStorageString('devpanel_notes', '');
   const [toast, setToast] = useState({ show: false, message: '' });
   const [modalConfig, setModalConfig] = useState({ isOpen: false, title: '', inputs: [], onConfirm: () => { } });
+  const [theme, setTheme] = useLocalStorageString('devpanel_theme', 'dark');
 
   // Toast
   const showToast = (message) => {
@@ -180,14 +181,40 @@ function App() {
       case 'notes':
         return <Notes notes={notes} onChange={setNotes} />;
       case 'system':
-        return <SystemStatus snippetsCount={snippets.length} projectsCount={projects.length} linksCount={links.length} />;
+        return (
+          <div className="system-settings">
+            <div className="glass-card">
+              <h2 style={{ marginBottom: '1.5rem' }}>Appearance</h2>
+              <div style={{ display: 'flex', gap: '1rem' }}>
+                <button
+                  onClick={() => setTheme('dark')}
+                  className={`theme-btn ${theme === 'dark' ? 'active' : ''}`}
+                  style={{ padding: '1rem 2rem', borderRadius: '12px', background: theme === 'dark' ? 'var(--text-primary)' : 'transparent', color: theme === 'dark' ? 'var(--bg-primary)' : 'var(--text-primary)', border: '1px solid var(--glass-border)', cursor: 'pointer' }}
+                >
+                  Dark Vibe
+                </button>
+                <button
+                  onClick={() => setTheme('snow')}
+                  className={`theme-btn ${theme === 'snow' ? 'active' : ''}`}
+                  style={{ padding: '1rem 2rem', borderRadius: '12px', background: theme === 'snow' ? 'var(--text-primary)' : 'transparent', color: theme === 'snow' ? 'var(--bg-primary)' : 'var(--text-primary)', border: '1px solid var(--glass-border)', cursor: 'pointer' }}
+                >
+                  ❄️ Snow
+                </button>
+              </div>
+            </div>
+
+            <div style={{ marginTop: '2rem' }}>
+              <SystemStatus snippetsCount={snippets.length} projectsCount={projects.length} linksCount={links.length} />
+            </div>
+          </div>
+        );
       default:
         return null;
     }
   };
 
   return (
-    <div className="app-container">
+    <div className={`app-container ${theme === 'snow' ? 'theme-snow' : ''}`}>
       <Toast show={toast.show} message={toast.message} />
       <Modal
         isOpen={modalConfig.isOpen}
