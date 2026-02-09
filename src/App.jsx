@@ -6,6 +6,7 @@ import { useLocalStorage, useLocalStorageString } from './hooks/useLocalStorage'
 // Components (using original flat structure)
 import Header from './components/Header';
 import Toast from './components/Toast';
+import Modal from './components/Modal';
 import Snippets from './components/Snippets';
 import Links from './components/Links';
 import Projects from './components/Projects';
@@ -34,6 +35,7 @@ function App() {
 
   const [notes, setNotes] = useLocalStorageString('devpanel_notes', '');
   const [toast, setToast] = useState({ show: false, message: '' });
+  const [modalConfig, setModalConfig] = useState({ isOpen: false, title: '', inputs: [], onConfirm: () => { } });
 
   // Toast
   const showToast = (message) => {
@@ -41,23 +43,46 @@ function App() {
     setTimeout(() => setToast({ show: false, message: '' }), 2500);
   };
 
+  // Modal Handler
+  const openModal = (config) => {
+    setModalConfig({ ...config, isOpen: true });
+  };
+
+  const closeModal = () => {
+    setModalConfig({ ...modalConfig, isOpen: false });
+  };
+
   // Handlers
   const handleAddSnippet = () => {
-    const title = prompt('Snippet Title:');
-    const code = prompt('Code:');
-    if (title && code) {
-      setSnippets([...snippets, { id: Date.now(), title, code }]);
-      showToast('Snippet added');
-    }
+    openModal({
+      title: 'New Snippet',
+      inputs: [
+        { name: 'title', label: 'Title', placeholder: 'Snippet Name' },
+        { name: 'code', label: 'Code', placeholder: 'Paste code here...' }
+      ],
+      onConfirm: (values) => {
+        if (values.title && values.code) {
+          setSnippets([...snippets, { id: Date.now(), title: values.title, code: values.code }]);
+          showToast('Snippet added');
+        }
+      }
+    });
   };
 
   const handleEditSnippet = (snippet) => {
-    const newTitle = prompt('Edit Title:', snippet.title);
-    const newCode = prompt('Edit Code:', snippet.code);
-    if (newTitle && newCode) {
-      setSnippets(snippets.map(s => s.id === snippet.id ? { ...s, title: newTitle, code: newCode } : s));
-      showToast('Snippet updated');
-    }
+    openModal({
+      title: 'Edit Snippet',
+      inputs: [
+        { name: 'title', label: 'Title', defaultValue: snippet.title },
+        { name: 'code', label: 'Code', defaultValue: snippet.code }
+      ],
+      onConfirm: (values) => {
+        if (values.title && values.code) {
+          setSnippets(snippets.map(s => s.id === snippet.id ? { ...s, title: values.title, code: values.code } : s));
+          showToast('Snippet updated');
+        }
+      }
+    });
   };
 
   const handleDeleteSnippet = (id) => {
@@ -71,12 +96,19 @@ function App() {
   };
 
   const handleAddLink = () => {
-    const name = prompt('Link Name:');
-    const url = prompt('URL:');
-    if (name && url) {
-      setLinks([...links, { id: Date.now(), name, url }]);
-      showToast('Link added');
-    }
+    openModal({
+      title: 'Add Link',
+      inputs: [
+        { name: 'name', label: 'Name', placeholder: 'Website Name' },
+        { name: 'url', label: 'URL', placeholder: 'https://example.com' }
+      ],
+      onConfirm: (values) => {
+        if (values.name && values.url) {
+          setLinks([...links, { id: Date.now(), name: values.name, url: values.url }]);
+          showToast('Link added');
+        }
+      }
+    });
   };
 
   const handleDeleteLink = (id) => {
@@ -85,11 +117,18 @@ function App() {
   };
 
   const handleAddProject = () => {
-    const name = prompt('Project Name:');
-    if (name) {
-      setProjects([...projects, { id: Date.now(), name, status: 'active', label: 'In Progress' }]);
-      showToast('Project added');
-    }
+    openModal({
+      title: 'New Project',
+      inputs: [
+        { name: 'name', label: 'Project Name', placeholder: 'Project Title' }
+      ],
+      onConfirm: (values) => {
+        if (values.name) {
+          setProjects([...projects, { id: Date.now(), name: values.name, status: 'active', label: 'In Progress' }]);
+          showToast('Project added');
+        }
+      }
+    });
   };
 
   const handleDeleteProject = (id) => {
@@ -145,6 +184,13 @@ function App() {
   return (
     <div className="app-container">
       <Toast show={toast.show} message={toast.message} />
+      <Modal
+        isOpen={modalConfig.isOpen}
+        title={modalConfig.title}
+        inputs={modalConfig.inputs}
+        onClose={closeModal}
+        onConfirm={modalConfig.onConfirm}
+      />
 
       {/* Animated Background */}
       <div className="vibe-bg">
