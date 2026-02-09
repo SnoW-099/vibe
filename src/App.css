@@ -48,9 +48,12 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  background-color: var(--bg-primary);
+  background-color: transparent;
+  /* Transparent to show vibe-bg behind */
   color: var(--text-primary);
   transition: background-color 0.5s ease, color 0.5s ease;
+  position: relative;
+  z-index: 1;
 }
 
 /* Specific overrides for Snow Theme applied to container */
