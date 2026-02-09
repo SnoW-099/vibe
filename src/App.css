@@ -214,6 +214,9 @@ body {
   margin-left: 72px;
   padding: 2rem 3rem;
   transition: margin-left 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+  /* Ensure it floats above fixed background */
+  z-index: 10;
 }
 
 .content-area {
