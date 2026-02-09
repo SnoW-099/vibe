@@ -16,17 +16,13 @@
   left: 0;
   height: 100vh;
   z-index: 100;
-  transition: width 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.15s;
-  /* Smooth collapse with slight delay */
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: width;
   box-shadow: 4px 0 24px rgba(0, 0, 0, 0.3);
 }
 
 .sidebar:hover {
   width: 240px;
-  /* Slightly wider for better breathing room */
-  transition-delay: 0s;
-  /* Instant expand */
 }
 
 /* Sidebar glow effect */
@@ -139,8 +135,7 @@
   max-width: 0;
   margin-left: 0;
   transform: translateX(-10px);
-  transition: opacity 0.3s ease, transform 0.3s ease, max-width 0.4s ease;
-  transition-delay: 0s;
+  transition: opacity 0.2s ease, transform 0.2s ease, max-width 0.2s ease;
   letter-spacing: -0.01em;
 }
 
@@ -150,7 +145,6 @@
   margin-left: 0.75rem;
   transform: translateX(0);
   transition-delay: 0.1s;
-  /* Wait for width to start expanding */
 }
 
 /* ===== MAIN CONTENT ===== */
